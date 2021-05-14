@@ -18,9 +18,10 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
     var arrayQuestionSize = 0
     var questionTracker = 0
     var correctAnswerS = ""
+    var correctNum: Int = 0
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return answers.count
+        return 4
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -28,8 +29,6 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         let cell = tableView.dequeueReusableCell(withIdentifier: "Options", for: indexPath)
                 
         cell.textLabel?.text = optionsQ[questionTracker][indexPath.row]
-        
-
         
         return cell
     }
@@ -39,12 +38,15 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         let cell = tableView.cellForRow(at: indexPath)
 
         answerChosen = indexPath.row
+        print("This is the right answer we are picking from now")
+        print(answerChosen)
+        print("This is the end")
         let index = correctA[questionTracker][0]
         correctAnswerS = optionsQ[questionTracker][index]
     }
 
     
-    let answers = ["Answer-1", "Answer-2", "Answer-3", "Answer-4"]
+   // let answers = ["Answer-1", "Answer-2", "Answer-3", "Answer-4"]
     
 
     override func viewDidLoad() {
@@ -69,17 +71,32 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "answer" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
+                
                 let controller = segue.destination as! AnswerViewController
                 controller.question = questionLabel.text!
                 controller.currentAnswer = answerChosen
                 controller.correctAnswer = correctA[questionTracker][0]
+                
+                print("What I am passing through")
+                print(correctA[questionTracker][0])
+                print("This is what i am passing through #debugged")
+                
                 controller.correctAnswerString = correctAnswerS
-    
-                if (questionTracker != arrayQuestionSize) {
-                    questionTracker = questionTracker + 1
+                controller.answer_Answer = correctA
+                controller.options_Answer = optionsQ
+                controller.questions_Answer = question
+                controller.tracker = questionTracker
+                controller.correctAnswerNum = correctNum
+                controller.totalQuestion = arrayQuestionSize
+                if (questionTracker != arrayQuestionSize - 1) {
+                    controller.tracker = questionTracker + 1
+                
                     controller.isFinished = false
+                    
                 } else {
+                    
                     controller.isFinished = true
+                    
                 }
 
             }

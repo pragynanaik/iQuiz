@@ -9,8 +9,9 @@ import UIKit
 
 class FinishedViewController: UIViewController {
 
-    let answer = true
-    let score = 0
+    var answer = true
+    var score = 0
+    var totalQuestion = 0
     
     @IBOutlet weak var feedback: UILabel!
     
@@ -19,12 +20,12 @@ class FinishedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if (answer) {
+        if (score == totalQuestion) {
             feedback.text = "Perfect!"
-            quizScore.text = "0/1"
+            quizScore.text = String(score) + " / " + String(totalQuestion)
         } else {
             feedback.text = "Almost!"
-            quizScore.text = "1/1"
+            quizScore.text = String(score) + " / " + String(totalQuestion)
         }
         // Do any additional setup after loading the view.
     }
