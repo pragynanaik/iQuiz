@@ -96,7 +96,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Here is my question" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lKC-kW-RHh">
-                                <rect key="frame" x="132" y="180" width="151" height="95"/>
+                                <rect key="frame" x="0.0" y="180" width="414" height="95"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -156,7 +156,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Question" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="my9-QP-zer">
-                                <rect key="frame" x="57" y="223" width="300" height="107"/>
+                                <rect key="frame" x="0.0" y="223" width="414" height="110"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -231,7 +231,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="EQd-XU-kV1"/>
+        <segue reference="7uH-TT-5e7"/>
+        <segue reference="K0s-8M-UYg"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="books.vertical" catalog="system" width="128" height="103"/>
