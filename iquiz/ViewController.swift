@@ -23,7 +23,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     let answers = [[[1],[2]],[[2]], [[2]]]
     
     
-    var subjects = ["", "", ""]
+    var subjects = [String]()
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -74,6 +74,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
+        self.tableView.tableFooterView = UIView()
+        
       
         
         DispatchQueue.global().async {
@@ -84,12 +89,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 do {
                     let questions = try JSONSerialization.jsonObject(with: data!, options: .allowFragments)
                     self.first = (questions as! [Dictionary<String, Any>])
+                    let numberQuiz = self.first.count
                     
-                    for i in 0...2 {
+                    for i in 0...(numberQuiz - 1) {
                         let first2 = self.first[i]
-                        self.subjects[i] = (first2["title"] as! String)
+                        self.subjects.append(first2["title"] as! String)
                     }
-                    print(self.subjects)
                     
                     //let questionDict = (first["questions"] as! [Dictionary<String, Any>])
     //                print(questionDict)
@@ -104,41 +109,72 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
             task.resume()
             
-            
-            Thread.sleep(forTimeInterval: 10)
+            Thread.sleep(forTimeInterval: 0.5)
             
             DispatchQueue.main.async {
-               
-                print("I'm here")
-                print(self.subjects)
+                self.tableView.reloadData()
+           
+                print("In main")
             }
+            
+            
+            
         }
         
-        self.tableView.dataSource = self
-        self.tableView.delegate = self
-        self.tableView.tableFooterView = UIView()
-        
-        print("something")
-        print(self.subjects)
     }
     
     @IBAction func settingsPop(_ sender: Any) {
         let alert = UIAlertController(title: "Settings", message: "", preferredStyle: .alert)
-
-        alert.addAction(UIAlertAction(title: "Check Now", style: .default, handler: nil))
-
+        
         alert.addTextField { (textField) in
             textField.text = "Add Custom URL"
         }
-        
-        let textField = alert.textFields![0]
-        
 
+        alert.addAction(UIAlertAction(title: "Check Now", style: .default, handler: { (action) in
+            let textField = alert.textFields![0]
+            let urlInput = textField.text!
+            let hasNetwork = self.checkNetwork(text: textField.text)
+            if (hasNetwork) {
+                print("Works")
+            } else {
+                print("doesnt'")
+            }
+        }))
+      
         self.present(alert,animated: true)
 
     }
 
 
-    
+    func checkNetwork(text: String?) -> Bool  {
+        let url = NSURL(string: text!)
+        let request = NSMutableURLRequest(url: url! as URL)
+        var statusCode = 0
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest) {
+            (data, response, error) in
+            guard let response = response else {
+//              print("Cannot found the response")
+              return
+            }
+            let myResponse = response as! HTTPURLResponse
+            print("Status Code:", myResponse.statusCode)
+            statusCode = myResponse.statusCode
+            print(statusCode)
+            
+//            DispatchQueue.main.async {
+//                checkNetwork(text: String?)
+//            }
+
+        }
+        
+        task.resume()
+        
+        print("outside task")
+        print(statusCode)
+        return (statusCode == 200)
+        
+     }
+        
 }
 
