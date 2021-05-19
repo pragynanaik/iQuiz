@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F40AC5992653B3C600677A05 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F40AC5982653B3C600677A05 /* Settings.bundle */; };
 		F44B55BC26438DBD00A373BD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44B55BB26438DBD00A373BD /* AppDelegate.swift */; };
 		F44B55BE26438DBD00A373BD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44B55BD26438DBD00A373BD /* SceneDelegate.swift */; };
 		F44B55C026438DBD00A373BD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44B55BF26438DBD00A373BD /* ViewController.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F40AC5982653B3C600677A05 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		F44B55B826438DBD00A373BD /* iquiz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iquiz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F44B55BB26438DBD00A373BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F44B55BD26438DBD00A373BD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 				F44B55BB26438DBD00A373BD /* AppDelegate.swift */,
 				F44B55BD26438DBD00A373BD /* SceneDelegate.swift */,
 				F44B55BF26438DBD00A373BD /* ViewController.swift */,
+				F40AC5982653B3C600677A05 /* Settings.bundle */,
 				F4BCF5F3264A841B0078D15D /* QuestionViewController.swift */,
 				F44B55C126438DBD00A373BD /* Main.storyboard */,
 				F4BCF5F8264A87050078D15D /* AnswerViewController.swift */,
@@ -240,6 +243,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F40AC5992653B3C600677A05 /* Settings.bundle in Resources */,
 				F44B55C826438DC600A373BD /* LaunchScreen.storyboard in Resources */,
 				F44B55C526438DC600A373BD /* Assets.xcassets in Resources */,
 				F44B55C326438DBD00A373BD /* Main.storyboard in Resources */,

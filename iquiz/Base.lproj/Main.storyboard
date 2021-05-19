@@ -231,8 +231,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="7uH-TT-5e7"/>
-        <segue reference="K0s-8M-UYg"/>
+        <segue reference="EQd-XU-kV1"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="books.vertical" catalog="system" width="128" height="103"/>
