@@ -14,7 +14,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var first: [Dictionary<String, Any>] = []
 //
 //    var subjects = ["Mathematics", "Marvel Super Heroes", "Science"]
-    let descriptions = ["All algebraic expressions and mathematical methods tested.", "The very best superheroes coming your way.", "Physics, Biology, Chemistry, and so much more!"]
+//    let descriptions = ["All algebraic expressions and mathematical methods tested.", "The very best superheroes coming your way.", "Physics, Biology, Chemistry, and so much more!"]
 
     let questions = [[["What is .99.. repeating?"], ["What is 2 + 2"]],[["What is the real name of Black Widow"]] , [["What color is blood in your veins?"]]]
 
@@ -24,6 +24,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     
     var subjects = [String]()
+    var descriptions = [String]()
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -94,13 +95,26 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     for i in 0...(numberQuiz - 1) {
                         let first2 = self.first[i]
                         self.subjects.append(first2["title"] as! String)
+                        self.descriptions.append(first2["desc"] as! String)
+                        
+                        let questionDict = (first2["questions"] as! [Dictionary<String, Any>])
+                        if (questionDict.count == 0) {
+                            let answers = questionDict[i]["answers"] as! Array<String>
+                            print(answers)
+                        } else {
+                            for j in 0...(questionDict.count-1) {
+                                let answers = questionDict[j]["answers"] as! Array<String>
+                                print(answers)
+                            }
+                        }
+                       
+              //          print(answers)
+                    
                     }
+                  
+                   
                     
-                    //let questionDict = (first["questions"] as! [Dictionary<String, Any>])
-    //                print(questionDict)
-    //                let answers = questionDict["answers"] as! Array<String>
-                    
-    //                print(answers)
+//                print(answers)
                 }
                 catch {
                     print("Error")
@@ -133,7 +147,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         alert.addAction(UIAlertAction(title: "Check Now", style: .default, handler: { (action) in
             let textField = alert.textFields![0]
             let urlInput = textField.text!
-            let hasNetwork = self.checkNetwork(text: textField.text)
+            var hasNetwork = false
+//            DispatchQueue.main.async {
+//                hasNetwork = self.checkNetwork(text: textField.text)
+//            }
+            
             if (hasNetwork) {
                 print("Works")
             } else {
@@ -162,9 +180,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             statusCode = myResponse.statusCode
             print(statusCode)
             
-//            DispatchQueue.main.async {
-//                checkNetwork(text: String?)
-//            }
+
 
         }
         
