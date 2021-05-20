@@ -174,9 +174,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let textField = alert.textFields![0]
             let urlInput = textField.text!
             var hasNetwork = false
-//            DispatchQueue.main.async {
-//                hasNetwork = self.checkNetwork(text: textField.text)
-//            }
+            DispatchQueue.main.async {
+                hasNetwork = self.checkNetwork(text: textField.text)
+            }
             
             if (hasNetwork) {
                 print("Works")
