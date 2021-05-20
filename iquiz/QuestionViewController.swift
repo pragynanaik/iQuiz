@@ -21,7 +21,8 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
     var correctNum: Int = 0
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        print(optionsQ)
+        return optionsQ[questionTracker].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

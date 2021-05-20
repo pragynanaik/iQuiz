@@ -16,25 +16,25 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 //    var subjects = ["Mathematics", "Marvel Super Heroes", "Science"]
 //    let descriptions = ["All algebraic expressions and mathematical methods tested.", "The very best superheroes coming your way.", "Physics, Biology, Chemistry, and so much more!"]
 
-    let questions = [[["What is .99.. repeating?"], ["What is 2 + 2"]],[["What is the real name of Black Widow"]] , [["What color is blood in your veins?"]]]
-
-    let options = [[["0", "1", "Infinity", "999"], ["0", "1", "4", "3"]], [["Stinky", "Star Wars", "Scarlett", "Potato"]], [["Blue", "Green", "Red", "Clear"]]]
-
-    let answers = [[[1],[2]],[[2]], [[2]]]
+//    let questions = [[["What is .99.. repeating?"], ["What is 2 + 2"]],[["What is the real name of Black Widow"]] , [["What color is blood in your veins?"]]]
+//
+//    let options = [[["0", "1", "Infinity", "999"], ["0", "1", "4", "3"]], [["Stinky", "Star Wars", "Scarlett", "Potato"]], [["Blue", "Green", "Red", "Clear"]]]
+//
+//    let answers = [[[1],[2]],[[2]], [[2]]]
     
     
     var subjects = [String]()
     var descriptions = [String]()
     
+    var questions: [[[String]]] = []
+    var options: [[[String]]] = []
+    var answers: [[[Int]]] = []
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return subjects.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "basicStyle", for: indexPath)
         //print("here")
         cell.textLabel?.text = self.subjects[indexPath.row]
@@ -45,15 +45,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        
-        
         let cell = tableView.cellForRow(at: indexPath)
         tableView.deselectRow(at: indexPath, animated: true)
         
         let chosenTopic = questions[indexPath.row]
         
-        let chosenOptions = options[indexPath.row]
+//        let chosenOptions = options[indexPath.row]
         
         number = indexPath.row
         performSegue(withIdentifier: "question", sender: cell)
@@ -80,7 +77,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.tableView.delegate = self
         self.tableView.tableFooterView = UIView()
         
-      
         
         DispatchQueue.global().async {
             print("In this one")
@@ -91,30 +87,62 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     let questions = try JSONSerialization.jsonObject(with: data!, options: .allowFragments)
                     self.first = (questions as! [Dictionary<String, Any>])
                     let numberQuiz = self.first.count
-                    
+
                     for i in 0...(numberQuiz - 1) {
                         let first2 = self.first[i]
                         self.subjects.append(first2["title"] as! String)
                         self.descriptions.append(first2["desc"] as! String)
-                        
+                        var tempArray = [[String]]()
+
+                        var finalAnswer = [[String]]()
+
+
                         let questionDict = (first2["questions"] as! [Dictionary<String, Any>])
-                        if (questionDict.count == 0) {
-                            let answers = questionDict[i]["answers"] as! Array<String>
-                            print(answers)
-                        } else {
-                            for j in 0...(questionDict.count-1) {
-                                let answers = questionDict[j]["answers"] as! Array<String>
-                                print(answers)
-                            }
+
+                        for questionChoice in questionDict{
+                              let text = questionChoice["text"]!
+
+                              var temporary:[String] = []
+
+                              temporary.append(text as! String)
+                             // if(questionTitle)
+                              tempArray.append(temporary)
+
                         }
-                       
-              //          print(answers)
-                    
+                        self.questions.append(tempArray)
+                        
+                        
+                        var answersInput: [[String]] = []
+                        
+                        for choices in questionDict{
+                            let text = choices["answers"]!
+                            answersInput.append(text as! [String])
+                        }
+                        
+                        
+                        self.options.append(answersInput)
+                        
+                        
+                        var result: [[Int]] = []
+                        for answer in questionDict{
+                        
+                            var answersArray: [Int] = []
+
+                            var answerText = answer["answer"]!
+                            answerText = Int(answerText as! String)!
+                            answerText = answerText as! Int - 1
+ 
+                            answersArray.append(answerText as! Int)
+                            
+                            result.append(answersArray)
+
+                        }
+                        self.answers.append(result)
+                        
+
                     }
-                  
-                   
-                    
-//                print(answers)
+
+              
                 }
                 catch {
                     print("Error")
@@ -122,17 +150,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
 
             task.resume()
-            
+
             Thread.sleep(forTimeInterval: 0.5)
-            
+
             DispatchQueue.main.async {
                 self.tableView.reloadData()
-           
-                print("In main")
             }
-            
-            
-            
+
+
+
         }
         
     }
